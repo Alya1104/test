@@ -1,0 +1,12 @@
+.my_timer {
+
+   
+    font-size: 30vw;
+    #font-size:calc(30vw-1vh);
+    max-width: 100%;
+    text-align: left;
+    user-select: none;
+
+  
+    
+}

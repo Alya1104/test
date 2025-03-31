@@ -1,77 +1,97 @@
+String.prototype.toMMSS = function () {
+  var sec_num = parseInt(this, 10); // don't forget the second param
+  var minutes = Math.floor(sec_num / 60);
+  var seconds = sec_num - minutes * 60;
+
+  if (minutes < 10) { minutes = "0" + minutes; }
+  if (seconds < 10) { seconds = "0" + seconds; }
+  return minutes + ':' + seconds;
+}
+
+
 Vue.component('timer', {
-    props: ['time'],
-    data() {
-      return {
-        timer: null,
-        remainingTime: this.time,
-        isPaused: false
-      };
-    },
-    watch: {
-      time(newTime) {
-        this.resetTimer(newTime);
-      }
-    },
-    methods: {
-      startTimer() {
-        if (this.timer) return;
-        this.timer = setInterval(() => {
-          if (this.remainingTime > 0) {
-            this.remainingTime--;
-          } else {
-            clearInterval(this.timer);
-            this.timer = null;
-            this.$emit('timeout');
-          }
-        }, 1000);
-      },
-      pauseTimer() {
-        if (this.timer) {
+  props: ['time'],
+  data() {
+    return {
+      timer: null,
+      remainingTime: this.time,
+      isPaused: false
+    };
+  },
+  computed: {
+    remainingTimeMMSS() {
+      return (this.remainingTime + "").toMMSS()
+    }
+  },
+  watch: {
+    time(newTime) {
+      this.resetTimer(newTime);
+    }
+  },
+  methods: {
+    startTimer() {
+      if (this.timer) return;      
+      this.timer = setInterval(() => {
+        if (this.remainingTime > 0) {
+          this.remainingTime--;
+        } else {
           clearInterval(this.timer);
           this.timer = null;
-          this.isPaused = true;
+          this.$emit('timeout');
         }
-      },
-      resumeTimer() {
-        if (this.isPaused) {
-          this.startTimer();
-          this.isPaused = false;
-        }
-      },
-      resetTimer(newTime) {
+      }, 1000);
+    },
+    pauseTimer() {
+      if (this.timer) {
         clearInterval(this.timer);
         this.timer = null;
-        this.remainingTime = newTime;
-        this.isPaused = false;
-        this.startTimer();
+        this.isPaused = true;
       }
     },
-    mounted() {
-      //this.startTimer();
+    resumeTimer() {
+      if (this.isPaused) {
+        this.startTimer();
+        this.isPaused = false;
+      }
     },
-    template: `
+    resetTimer(newTime) {
+      clearInterval(this.timer);
+      this.timer = null;
+      this.remainingTime = newTime;
+      this.isPaused = false;
+      this.startTimer();
+    }
+  },
+  mounted() {
+    //this.startTimer();
+  },
+  template: `
       <div>
-        <p>Time remaining: {{ remainingTime }} seconds</p>
-        <button @click="startTimer">Start</button>
-        <button @click="pauseTimer">Pause</button>
-        <button @click="resumeTimer">Resume</button>
-        <button @click="resetTimer(time)">Restart</button>
+        <h1 class="my_timer mt-0">{{ remainingTimeMMSS }}</h1>
+        <button class="btn btn-primary btn-lg" @click="startTimer">Start</button>
+        <button class="btn btn-primary btn-lg" @click="pauseTimer">Pause</button>
+        <button class="btn btn-primary btn-lg" @click="resumeTimer">Resume</button>
+        <button class="btn btn-primary btn-lg" @click="resetTimer(time)">Restart</button>
       </div>
     `
-  });
-
-
-  new Vue({
-    el: '#app',
-    data: {
-        timerTime: 180
-    },
-    methods: {
-        handleTimeout() {
-            alert('Time is up!');
-          }
-    }
 });
+
+
+
+new Vue({
+  el: '#app',
+  data: {
+    timerTime: 180
+  },
+  methods: {
+    handleTimeout() {
+      alert('Time is up!');
+    }
+  }
+});
+
+
+
 
 /*
 Vue.component('timer', {
