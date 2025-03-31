@@ -61,6 +61,7 @@ Vue.component('timer', {
       this.isPaused = false;
       this.startTimer();
     }
+
   },
   mounted() {
     //this.startTimer();
@@ -76,19 +77,63 @@ Vue.component('timer', {
     `
 });
 
-
+let data=null;
 
 new Vue({
   el: '#app',
   data: {
-    timerTime: 180
+    timerTime: 180,
+    country:"Начните игру",
+    capital:""
   },
   methods: {
     handleTimeout() {
       alert('Time is up!');
-    }
+    },
+    startGame()
+    {
+      //data={countries};
+      data = JSON.parse(JSON.stringify(countries));
+      this.nextQuestion();
+
+    },
+    stopGame()
+    {
+
+    },
+    pauseGame()
+    {
+
+    },
+    nextQuestion()
+    {
+      randomCountry=getRandomElementAndRemove(data);
+      this.country=randomCountry["Страна"];
+      this.capital="Показать";//randomCountry["Столица"];
+    },
+    showCapital()
+    {
+      this.capital=randomCountry["Столица"];
+    }  
   }
 });
+
+function getRandomElementAndRemove(array) {
+  if (array.length === 0) {
+    return null; // Если массив пуст, возвращаем null
+  }
+
+  // Выбираем случайный индекс из массива
+  const randomIndex = Math.floor(Math.random() * array.length);
+
+  // Запоминаем случайный элемент
+  const randomElement = array[randomIndex];
+
+  // Удаляем элемент из массива
+  array.splice(randomIndex, 1);
+
+  return randomElement;
+}
 
 
 

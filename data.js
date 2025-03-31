@@ -1,4 +1,5 @@
-data=[
+
+const allCountries=[
     {
       "Страна": "Абхазия",
       "Столица": "Сухум",
@@ -1386,3 +1387,5 @@ data=[
       "Континент": ""
     }
   ]
+
+  const countries = allCountries.filter(country => country.Континент === "Европа");

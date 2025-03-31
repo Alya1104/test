@@ -1,12 +1,25 @@
 .my_timer {
 
    
-    font-size: 30vw;
+    font-size: 10vw;
     #font-size:calc(30vw-1vh);
     max-width: 100%;
-    text-align: left;
+    text-align: center;
     user-select: none;
 
   
     
+}
+
+.country
+{
+    font-size: 10vw;
+    max-width: 100%;
+    text-align: center;
+    user-select: none;
+}
+
+.capital
+{
+    font-size: 40px;
 }
