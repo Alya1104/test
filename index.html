@@ -19,7 +19,7 @@
     <div id="app" class="containter">
         <div class="row">
             <div class="col-8">
-                <timer ref="mainTimer" :time="timerTime" @timeout="handleTimeout('mainTimer')"></timer>
+                <timer  class="main-timer" ref="mainTimer" :time="timerTime" @timeout="handleTimeout('mainTimer')"></timer>
             </div>
             <div class="col-4">
                 <input type="number" v-model="timerTime" placeholder="Time in seconds">
@@ -27,15 +27,19 @@
             
         </div>
         <div class="row text-center mt-5">
-            <div class="col-4 country">
+            <div class="col-6 country">
                 {{country}}
             </div>
-            <div class="col-4 capital" @click="showCapital">
-                {{capital}}
+        </div>
+        <div class="row">
+                <div class="col-6 capital" @click="showCapital">
+                    {{capital}}
+    
             </div>
             <div class="col-4">
-                <timer ref="addTimer" :time="timerTime2" @timeout="handleTimeout('addTimer')"></timer>
+                <timer class="add-timer" ref="addTimer" :time="addTimerTime" @timeout="handleTimeout('addTimer')"></timer>
             </div>
+
         </div>
         <div class="mt-3">
             <button class="btn btn-primary mr-2" @click="startGame">Запустить</button>

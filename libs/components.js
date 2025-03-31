@@ -30,7 +30,7 @@ Vue.component('timer', {
   },
   methods: {
     startTimer() {
-      if (this.timer) return;      
+      if (this.timer) return;
       this.timer = setInterval(() => {
         if (this.remainingTime > 0) {
           this.remainingTime--;
@@ -68,7 +68,7 @@ Vue.component('timer', {
   },
   template: `
       <div>
-        <h1 class="my_timer mt-0">{{ remainingTimeMMSS }}</h1>
+        <h1>{{ remainingTimeMMSS }}</h1>
         <!--
         <button class="btn btn-primary btn-lg" @click="startTimer">Start</button>
         <button class="btn btn-primary btn-lg" @click="pauseTimer">Pause</button>
@@ -79,48 +79,50 @@ Vue.component('timer', {
     `
 });
 
-let data=null;
+let data = null;
 
 new Vue({
   el: '#app',
   data: {
     timerTime: 180,
-    timerTime2:30,
-    country:"Начните игру",
-    capital:""
+    addTimerTime: 30,
+    country: "Начните игру",
+    capital: ""
   },
   methods: {
-    handleTimeout() {
-      alert('Time is up!');
+    handleTimeout(timerName) {
+      switch (timerName) {
+        case 'mainTimer':
+          alert('Time is up!');
+          break;
+        case 'addTimer':
+          this.nextQuestion();
+          break;
+      }
     },
-    startGame()
-    {
+    startGame() {
       //data={countries};
       data = JSON.parse(JSON.stringify(countries));
       this.nextQuestion();
       this.$refs.mainTimer.startTimer();
 
     },
-    stopGame()
-    {
+    stopGame() {
 
     },
-    pauseGame()
-    {
+    pauseGame() {
 
     },
-    nextQuestion()
-    {
-      randomCountry=getRandomElementAndRemove(data);
-      this.country=randomCountry["Страна"];
-      this.capital="Показать";//randomCountry["Столица"];  
+    nextQuestion() {
+      randomCountry = getRandomElementAndRemove(data);
+      this.country = randomCountry["Страна"];
+      this.capital = "Показать";//randomCountry["Столица"];  
       this.$refs.addTimer.resetTimer(30);
       this.$refs.addTimer.startTimer();
     },
-    showCapital()
-    {
-      this.capital=randomCountry["Столица"];
-    }  
+    showCapital() {
+      this.capital = randomCountry["Столица"];
+    }
   }
 });
 
