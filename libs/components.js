@@ -69,10 +69,12 @@ Vue.component('timer', {
   template: `
       <div>
         <h1 class="my_timer mt-0">{{ remainingTimeMMSS }}</h1>
+        <!--
         <button class="btn btn-primary btn-lg" @click="startTimer">Start</button>
         <button class="btn btn-primary btn-lg" @click="pauseTimer">Pause</button>
         <button class="btn btn-primary btn-lg" @click="resumeTimer">Resume</button>
         <button class="btn btn-primary btn-lg" @click="resetTimer(time)">Restart</button>
+        -->
       </div>
     `
 });
@@ -83,6 +85,7 @@ new Vue({
   el: '#app',
   data: {
     timerTime: 180,
+    timerTime2:30,
     country:"Начните игру",
     capital:""
   },
@@ -95,6 +98,7 @@ new Vue({
       //data={countries};
       data = JSON.parse(JSON.stringify(countries));
       this.nextQuestion();
+      this.$refs.mainTimer.startTimer();
 
     },
     stopGame()
@@ -109,7 +113,9 @@ new Vue({
     {
       randomCountry=getRandomElementAndRemove(data);
       this.country=randomCountry["Страна"];
-      this.capital="Показать";//randomCountry["Столица"];
+      this.capital="Показать";//randomCountry["Столица"];  
+      this.$refs.addTimer.resetTimer(30);
+      this.$refs.addTimer.startTimer();
     },
     showCapital()
     {

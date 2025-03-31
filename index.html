@@ -19,7 +19,7 @@
     <div id="app" class="containter">
         <div class="row">
             <div class="col-8">
-                <timer :time="timerTime" @timeout="handleTimeout"></timer>
+                <timer ref="mainTimer" :time="timerTime" @timeout="handleTimeout('mainTimer')"></timer>
             </div>
             <div class="col-4">
                 <input type="number" v-model="timerTime" placeholder="Time in seconds">
@@ -32,6 +32,9 @@
             </div>
             <div class="col-4 capital" @click="showCapital">
                 {{capital}}
+            </div>
+            <div class="col-4">
+                <timer ref="addTimer" :time="timerTime2" @timeout="handleTimeout('addTimer')"></timer>
             </div>
         </div>
         <div class="mt-3">
