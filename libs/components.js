@@ -93,7 +93,10 @@ new Vue({
     handleTimeout(timerName) {
       switch (timerName) {
         case 'mainTimer':
+          document.getElementById('startGame').disabled=true
+          document.getElementById('nextQuestion').disabled=true
           alert('Time is up!');
+
           break;
         case 'addTimer':
           this.nextQuestion();
@@ -112,6 +115,11 @@ new Vue({
     },
     pauseGame() {
 
+    },
+    restartGame()
+    {
+      if (confirm("Перезапустить?"))
+        window.location.reload();
     },
     nextQuestion() {
       randomCountry = getRandomElementAndRemove(data);
