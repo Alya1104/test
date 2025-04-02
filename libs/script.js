@@ -109,6 +109,8 @@ new Vue({
       //data={countries};
       data = JSON.parse(JSON.stringify(countries));
       document.getElementById("nextQuestion").disabled=false;
+      document.getElementById("addScore").disabled=false;
+      document.getElementById("removeScore").disabled=false;
       this.nextQuestion();
       this.$refs.mainTimer.startTimer();
 
