@@ -36,3 +36,32 @@
 {
     font-size: 40px;
 }
+
+
+.hint-container {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.hint-toggle {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    #writing-mode: horizontal-tb;
+    text-orientation: mixed;
+}
+
+.hint-content {
+    background-color: #f1f1f1;
+    padding: 20px;
+    width: 300px;
+    display: none;
+}
+
+.score{
+    font-size: 30px;
+}
