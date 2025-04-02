@@ -85,6 +85,7 @@ new Vue({
   el: '#app',
   data: {
     score:0,
+    isNext:true,
     timerTime: 180,
     addTimerTime: 30,
     country: "Начните игру",
@@ -138,7 +139,7 @@ new Vue({
     addScore(score)
     {
       this.score+=score;
-      this.nextQuestion();
+      if (this.isNext) this.nextQuestion();
     }
   }
 });
