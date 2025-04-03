@@ -119,6 +119,10 @@ new Vue({
     stopGame() {
       alert('Game over!');
       this.$refs.addTimer.pauseTimer();
+      document.getElementById("nextQuestion").disabled=true;
+      document.getElementById("addScore").disabled=true;
+      document.getElementById("removeScore").disabled=true;
+
     },
     pauseGame() {
 
