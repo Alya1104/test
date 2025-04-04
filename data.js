@@ -1378,14 +1378,7 @@ const allCountries=[
       "Площадь": "377 944",
       "Население": "127 103 388",
       "Континент": "Азия"
-    },
-    {
-      "Страна": "",
-      "Столица": "",
-      "Площадь": "",
-      "Население": "",
-      "Континент": ""
     }
   ]
 
-  const countries = allCountries.filter(country => country.Континент === "Европа");
+  let countries = allCountries.filter(country =>  country.Континент);

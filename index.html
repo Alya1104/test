@@ -76,6 +76,18 @@
                 <input type="number" v-model="addTimerTime" id="addTimer" placeholder="время на ответ в секундах">
                 <label for="isNext">Переходить к следующей</label>
                 <input type="checkbox" v-model="isNext">
+                <h6>Выберите континенты:</h6>
+        <label v-for="continent in continents" :key="continent">
+            <input type="checkbox" v-model="selectedContinents" :value="continent">
+            {{ continent }}
+        </label>
+        <!--
+        <div v-if="selectedContinents.length > 0">
+            <h3>Выбранные континенты:</h3>
+            <ul>
+                <li v-for="selected in selectedContinents" :key="selected">{{ selected }}</li>
+            </ul>
+        </div>-->
             </div>
             </div>
         </div>

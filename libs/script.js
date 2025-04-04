@@ -89,7 +89,9 @@ new Vue({
     timerTime: 180,
     addTimerTime: 30,
     country: "Начните игру",
-    capital: ""
+    capital: "",
+    continents: ['Африка', 'Азия', 'Австралия', 'Европа', 'Северная Америка', 'Южная Америка'],
+                selectedContinents: ['Европа']    
   },
   methods: {
     handleTimeout(timerName) {
@@ -107,11 +109,13 @@ new Vue({
     },
     startGame() {
       //data={countries};
+      countries = allCountries.filter(country => this.selectedContinents.includes(country.Континент));
       data = JSON.parse(JSON.stringify(countries));
       document.getElementById("nextQuestion").disabled=false;
       document.getElementById("addScore").disabled=false;
       document.getElementById("removeScore").disabled=false;
       this.nextQuestion();
+      console.log(countries);
       this.$refs.mainTimer.startTimer();
 
 
