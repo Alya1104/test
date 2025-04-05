@@ -1,3 +1,11 @@
+const isLog=true;
+function log(text)
+{
+  if (isLog)
+    console.log(text);
+}
+
+
 String.prototype.toMMSS = function () {
   var sec_num = parseInt(this, 10); // don't forget the second param
   var minutes = Math.floor(sec_num / 60);
@@ -59,7 +67,7 @@ Vue.component('timer', {
       this.timer = null;
       this.remainingTime = newTime;
       this.isPaused = false;
-     // this.startTimer();
+      // this.startTimer();
     }
 
   },
@@ -84,22 +92,24 @@ let data = null;
 new Vue({
   el: '#app',
   data: {
-    score:0,
-    isNext:true,
+    score: 0,
+    isNext: true,
     timerTime: 180,
     addTimerTime: 30,
     country: "Начните игру",
     capital: "",
-    continents: ['Африка', 'Азия', 'Австралия', 'Европа', 'Северная Америка', 'Южная Америка'],
-                selectedContinents: ['Европа']    
+    countries: [],
+    isCapitalShow: false,
+    continents: ['Африка', 'Азия', 'Австралия и Океания', 'Европа', 'Северная Америка', 'Южная Америка'],
+    selectedContinents: ['Европа']
   },
   methods: {
     handleTimeout(timerName) {
       switch (timerName) {
         case 'mainTimer':
-          document.getElementById('startGame').disabled=true
-          document.getElementById('nextQuestion').disabled=true
-          this.stopGame();          
+          document.getElementById('startGame').disabled = true
+          document.getElementById('nextQuestion').disabled = true
+          this.stopGame();
 
           break;
         case 'addTimer':
@@ -109,13 +119,14 @@ new Vue({
     },
     startGame() {
       //data={countries};
-      countries = allCountries.filter(country => this.selectedContinents.includes(country.Континент));
-      data = JSON.parse(JSON.stringify(countries));
-      document.getElementById("nextQuestion").disabled=false;
-      document.getElementById("addScore").disabled=false;
-      document.getElementById("removeScore").disabled=false;
+      this.countries = allCountries.filter(country => this.selectedContinents.includes(country.Континент));
+      //data = JSON.parse(JSON.stringify(countries));
+      document.getElementById("nextQuestion").disabled = false;
+      document.getElementById("addScore").disabled = false;
+      document.getElementById("removeScore").disabled = false;
+      this.isCapitalShow = true;
       this.nextQuestion();
-      console.log(countries);
+      //console.log(countries);
       this.$refs.mainTimer.startTimer();
 
 
@@ -123,32 +134,38 @@ new Vue({
     stopGame() {
       alert('Game over!');
       this.$refs.addTimer.pauseTimer();
-      document.getElementById("nextQuestion").disabled=true;
-      document.getElementById("addScore").disabled=true;
-      document.getElementById("removeScore").disabled=true;
+      this.isCapitalShow = false;
+      document.getElementById("nextQuestion").disabled = true;
+      document.getElementById("addScore").disabled = true;
+      document.getElementById("removeScore").disabled = true;
 
     },
     pauseGame() {
 
     },
-    restartGame()
-    {
+    restartGame() {
       if (confirm("Перезапустить?"))
         window.location.reload();
     },
     nextQuestion() {
-      randomCountry = getRandomElementAndRemove(data);
-      this.country = randomCountry["Страна"];
-      this.capital = "Показать";//randomCountry["Столица"];  
-      this.$refs.addTimer.resetTimer(parseInt(document.getElementById("addTimer").value));
-      this.$refs.addTimer.startTimer();
+      if (this.countries.length > 0) {
+        randomCountry = getRandomElementAndRemove(this.countries);
+        this.country = randomCountry["Страна"];
+        this.capital = "Показать";//randomCountry["Столица"];  
+        this.$refs.addTimer.resetTimer(parseInt(document.getElementById("addTimer").value));
+        this.$refs.addTimer.startTimer();
+      }
+      else
+      {
+        alert("Вопросы закончились. Перезапустите игру")
+      }
+
     },
     showCapital() {
       this.capital = randomCountry["Столица"];
     },
-    addScore(score)
-    {
-      this.score+=score;
+    addScore(score) {
+      this.score += score;
       if (this.isNext) this.nextQuestion();
     }
   }
@@ -175,16 +192,16 @@ function getRandomElementAndRemove(array) {
 let isHintVisible = false;
 
 function toggleHint() {
-    const hintContent = document.querySelector('.hint-content');
-    const hintToggle = document.querySelector('.hint-toggle');
+  const hintContent = document.querySelector('.hint-content');
+  const hintToggle = document.querySelector('.hint-toggle');
 
-    if (isHintVisible) {
-        hintContent.style.display = 'none';
-        hintToggle.textContent = 'Инструкция';
-        isHintVisible = false;
-    } else {
-        hintContent.style.display = 'block';
-        hintToggle.textContent = 'Спрятать';
-        isHintVisible = true;
-    }
+  if (isHintVisible) {
+    hintContent.style.display = 'none';
+    hintToggle.textContent = 'Настройки';
+    isHintVisible = false;
+  } else {
+    hintContent.style.display = 'block';
+    hintToggle.textContent = 'Спрятать';
+    isHintVisible = true;
+  }
 }

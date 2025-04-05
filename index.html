@@ -38,8 +38,8 @@
             </table>
             <table>
                 <tr>
-                    <td><button class="btn btn-primary" @click="addScore(+1)" disabled id="addScore">+1</button></td>
-                    <td><button  class="btn btn-primary" @click="addScore(-1)" disabled id="removeScore">-1</button></td>
+                    <td><button class="btn btn-primary" style="width: 100px;" @click="addScore(+1)" disabled id="addScore">+1</button></td>
+                    <td><button  class="btn btn-primary" style="width: 100px;" @click="addScore(-1)" disabled id="removeScore">-1</button></td>
                 </tr>
             </table>
         </div>        
@@ -47,7 +47,10 @@
             <div class="col-8">
                 <timer  class="main-timer" ref="mainTimer" :time="timerTime" @timeout="handleTimeout('mainTimer')"></timer>
             </div>
-
+            <div class="col-4">
+                <timer class="add-timer" ref="addTimer" :time="addTimerTime" @timeout="handleTimeout('addTimer')"></timer>
+                <h3 class="text-center">Стран:{{countries.length}}</h3>
+            </div>
             
         </div>
         <div class="row text-center mt-5">
@@ -56,13 +59,11 @@
             </div>
         </div>
         <div class="row">
-                <div class="col-6 capital" @click="showCapital">
+                <div class="col-6 capital" @click="showCapital" v-show="isCapitalShow">
                     {{capital}}
     
             </div>
-            <div class="col-4">
-                <timer class="add-timer" ref="addTimer" :time="addTimerTime" @timeout="handleTimeout('addTimer')"></timer>
-            </div>
+
 
         </div>
     <div class="hint-container text-center" style="font-size: small;">
@@ -70,17 +71,18 @@
         <div class="hint-content" style="text-align: justify;">
             <h6>Настройки</h6>
             <div>
-                <label for="gameTime">Время на игру</label>
+                <label for="gameTime">Время на игру (сек)</label>
                 <input type="number" v-model="timerTime" id="gameTime" placeholder="Время игры в секундах">
-                <label for="addTimer">Время на ответ</label>
+                <label for="addTimer">Время на ответ (сек)</label>
                 <input type="number" v-model="addTimerTime" id="addTimer" placeholder="время на ответ в секундах">
-                <label for="isNext">Переходить к следующей</label>
+                <label for="isNext">Автоматический переход</label>
                 <input type="checkbox" v-model="isNext">
-                <h6>Выберите континенты:</h6>
+                <h6>Континенты:</h6>
         <label v-for="continent in continents" :key="continent">
             <input type="checkbox" v-model="selectedContinents" :value="continent">
             {{ continent }}
         </label>
+        <div><strong>Смена континентов учитывается при запуске игры</strong></div>
         <!--
         <div v-if="selectedContinents.length > 0">
             <h3>Выбранные континенты:</h3>
