@@ -135,9 +135,10 @@ new Vue({
 
 
     },
-    stopGame() {
-      alert('Game over!');
+    stopGame(showGameOver=true) {
+      if (showGameOver) alert('Game over!');
       this.$refs.addTimer.pauseTimer();
+      this.$refs.mainTimer.pauseTimer();
       this.isCapitalShow = false;
       this.gameOn=false;
       document.getElementById("nextQuestion").disabled = true;
@@ -164,7 +165,8 @@ new Vue({
       }
       else
       {
-        alert("Вопросы закончились. Перезапустите игру")
+        alert("Вопросы закончились. Перезапустите игру");
+        this.stopGame(false);
       }
 
     },
