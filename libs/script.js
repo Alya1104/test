@@ -1,4 +1,5 @@
 const isLog=true;
+
 function log(text)
 {
   if (isLog)
@@ -92,6 +93,7 @@ let data = null;
 new Vue({
   el: '#app',
   data: {
+    isSpeak:true,
     score: 0,
     isNext: true,
     timerTime: 180,
@@ -99,7 +101,7 @@ new Vue({
     country: "Начните игру",
     capital: "",
     countries: [],
-    isCapitalShow: false,
+    isCapitalShow: false,    
     continents: ['Африка', 'Азия', 'Австралия и Океания', 'Европа', 'Северная Америка', 'Южная Америка'],
     selectedContinents: ['Европа']
   },
@@ -152,6 +154,8 @@ new Vue({
         randomCountry = getRandomElementAndRemove(this.countries);
         this.country = randomCountry["Страна"];
         this.capital = "Показать";//randomCountry["Столица"];  
+        if (this.isSpeak)
+          speak(this.country);
         this.$refs.addTimer.resetTimer(parseInt(document.getElementById("addTimer").value));
         this.$refs.addTimer.startTimer();
       }
@@ -163,6 +167,8 @@ new Vue({
     },
     showCapital() {
       this.capital = randomCountry["Столица"];
+      if (this.isSpeak)
+        speak(this.capital);
     },
     addScore(score) {
       this.score += score;
