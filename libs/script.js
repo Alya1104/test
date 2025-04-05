@@ -95,6 +95,7 @@ new Vue({
   data: {
     isSpeak:true,
     score: 0,
+    gameOn: false,
     isNext: true,
     timerTime: 180,
     addTimerTime: 30,
@@ -122,6 +123,7 @@ new Vue({
     startGame() {
       //data={countries};
       this.countries = allCountries.filter(country => this.selectedContinents.includes(country.Континент));
+      this.gameOn=true;
       //data = JSON.parse(JSON.stringify(countries));
       document.getElementById("nextQuestion").disabled = false;
       document.getElementById("addScore").disabled = false;
@@ -137,6 +139,7 @@ new Vue({
       alert('Game over!');
       this.$refs.addTimer.pauseTimer();
       this.isCapitalShow = false;
+      this.gameOn=false;
       document.getElementById("nextQuestion").disabled = true;
       document.getElementById("addScore").disabled = true;
       document.getElementById("removeScore").disabled = true;
