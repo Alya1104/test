@@ -110,8 +110,8 @@ new Vue({
     handleTimeout(timerName) {
       switch (timerName) {
         case 'mainTimer':
-          document.getElementById('startGame').disabled = true
-          document.getElementById('nextQuestion').disabled = true
+          //document.getElementById('startGame').disabled = true
+          //document.getElementById('nextQuestion').disabled = true
           this.stopGame();
 
           break;
@@ -124,10 +124,12 @@ new Vue({
       //data={countries};
       this.countries = allCountries.filter(country => this.selectedContinents.includes(country.Континент));
       this.gameOn=true;
+      this.score=0;
+      document.getElementById("startGame").disabled=true;
       //data = JSON.parse(JSON.stringify(countries));
-      document.getElementById("nextQuestion").disabled = false;
-      document.getElementById("addScore").disabled = false;
-      document.getElementById("removeScore").disabled = false;
+      //document.getElementById("nextQuestion").disabled = false;
+      //document.getElementById("addScore").disabled = false;
+      //document.getElementById("removeScore").disabled = false;
       this.isCapitalShow = true;
       this.nextQuestion();
       //console.log(countries);
@@ -136,14 +138,16 @@ new Vue({
 
     },
     stopGame(showGameOver=true) {
-      if (showGameOver) alert('Game over!');
       this.$refs.addTimer.pauseTimer();
       this.$refs.mainTimer.pauseTimer();
       this.isCapitalShow = false;
       this.gameOn=false;
-      document.getElementById("nextQuestion").disabled = true;
-      document.getElementById("addScore").disabled = true;
-      document.getElementById("removeScore").disabled = true;
+      if (showGameOver) 
+       alert('Game over!');
+      
+      //document.getElementById("nextQuestion").disabled = true;
+      //document.getElementById("addScore").disabled = true;
+      //document.getElementById("removeScore").disabled = true;
 
     },
     pauseGame() {
@@ -165,8 +169,8 @@ new Vue({
       }
       else
       {
-        alert("Вопросы закончились. Перезапустите игру");
         this.stopGame(false);
+       alert("Вопросы закончились. Перезапустите игру");
       }
 
     },
