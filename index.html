@@ -52,6 +52,12 @@
             <div class="col-4">
                 <timer class="add-timer" ref="addTimer" :time="addTimerTime" @timeout="handleTimeout('addTimer')"></timer>
                 <h3 class="text-center">Стран:{{countries.length}}</h3>
+                <div v-if="selectedContinents.length > 0">
+                    <h3>Выбранные континенты:</h3>
+                    <ul class="two-column-list">
+                        <li v-for="selected in selectedContinents" :key="selected">{{ selected }}</li>
+                    </ul>
+                </div>
             </div>
             
         </div>
@@ -87,16 +93,11 @@
             {{ continent }}
         </label>
         <div><strong>Смена континентов учитывается при запуске игры</strong></div>
-        <!--
-        <div v-if="selectedContinents.length > 0">
-            <h3>Выбранные континенты:</h3>
-            <ul>
-                <li v-for="selected in selectedContinents" :key="selected">{{ selected }}</li>
-            </ul>
-        </div>-->
             </div>
             </div>
         </div>
+
+
     </div>
 </div>
 

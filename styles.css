@@ -1,3 +1,7 @@
+div
+{
+    #border: 1px red dotted;
+}
 .main-timer {
 
    
@@ -22,6 +26,11 @@
 
   
     
+}
+
+.two-column-list {
+    column-count: 2; /* Устанавливает количество колонок */
+    column-gap: 20px; /* Расстояние между колонками */
 }
 
 .country
